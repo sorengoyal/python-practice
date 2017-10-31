@@ -14,9 +14,10 @@ class Solution:
         for r in range(0,m):
             for r1 in range(0,m):
                 s[r][r1] = self.getSteps(r,r1)
-        for k in range(n-1, -1, -1):
-            for r in range(0, m):
+        for k in range(n-1, 0, -1):
+            for r in indexMap[key[k-1]]:
                 c[k][r] = min([c[k+1][i] + s[r][i] + 1 for i in indexMap[key[k]]])
+        c[0][0] = min([c[1][i] + s[0][i] + 1 for i in indexMap[key[0]]])
         return c[0][0]
 
     def buildIndexMap(self):
@@ -37,7 +38,9 @@ class Solution:
 
 if __name__ == '__main__':
     sln = Solution()
-    ring = "uhkmmysrhsdexzosvjckhmepx"
-    key = "eeossmhkschhohucxujosvedukscjrmesmsmkkkmzxsjrmhdkheduzchrppevmxmsrxxkzexjhzkphsyhmssdxmvhhoxypevmymy"
+    #ring = "uhkmmysrhsdexzosvjckhmepx"
+    #key = "eeossmhkschhohucxujosvedukscjrmesmsmkkkmzxsjrmhdkheduzchrppevmxmsrxxkzexjhzkphsyhmssdxmvhhoxypevmymy"
+    ring = "godding"
+    key = "gd"
     s = sln.findRotateSteps(ring, key)
     print(s)
