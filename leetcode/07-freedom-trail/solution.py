@@ -6,21 +6,18 @@ class Solution:
         :rtype: int
         """
         self.ring = ring
-        self.key = key
-        self.indexMap = self.buildIndexMap()
-
-        return self.countSteps(0,0)
-
-    def countSteps(self, k, r):
-        n = len(self.key)
-        if k >= n:
-            return 0
-        minv = 1000
-        for i in self.indexMap[self.key[k]]:
-            steps = self.countSteps(k + 1, i) + self.getSteps(r, i) + 1
-            if minv > steps:
-                minv = steps
-        return minv
+        indexMap = self.buildIndexMap()
+        n = len(key)
+        m = len(self.ring)
+        c = [ [0 for j in range(0,m)] for i in range(0,n+1)]
+        s = [ [0 for j in range(0,m)] for i in range(0,m)]
+        for r in range(0,m):
+            for r1 in range(0,m):
+                s[r][r1] = self.getSteps(r,r1)
+        for k in range(n-1, -1, -1):
+            for r in range(0, m):
+                c[k][r] = min([c[k+1][i] + s[r][i] + 1 for i in indexMap[key[k]]])
+        return c[0][0]
 
     def buildIndexMap(self):
         d = {}
@@ -40,7 +37,7 @@ class Solution:
 
 if __name__ == '__main__':
     sln = Solution()
-    ring = "godding"
-    key = "gd"
+    ring = "uhkmmysrhsdexzosvjckhmepx"
+    key = "eeossmhkschhohucxujosvedukscjrmesmsmkkkmzxsjrmhdkheduzchrppevmxmsrxxkzexjhzkphsyhmssdxmvhhoxypevmymy"
     s = sln.findRotateSteps(ring, key)
     print(s)
