@@ -4,6 +4,21 @@ class Solution:
         :type nums: List[int]
         :rtype: str
         """
+        if len(nums) == 1:
+            return str(nums[0])
+        if len(nums) == 2:
+            return '%d/%d' % (nums[0], nums[1])
+        from functools import reduce
+        den = reduce(lambda acc, val: acc + '/' + str(val), nums[2:], str(nums[1]))
+        return str(nums[0]) + '/(' + den + ')'
+'''
+
+class Solution:
+    def optimalDivision(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
         self.nums = nums
 
         return self.maxValue(0, len(nums)-1)
@@ -63,5 +78,6 @@ class Solution:
 
 if __name__ == '__main__':
     sln = Solution()
-    nums = [1000,100,10,2]
+    nums = [1,777,133,861,416,482,796,33,299,643]
     print(sln.optimalDivision(nums))
+'''
